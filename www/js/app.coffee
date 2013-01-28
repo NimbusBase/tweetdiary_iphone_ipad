@@ -120,7 +120,11 @@ window.auto_sync = ->
 window.filter_store = (word) ->
   window.store.filterBy((record)->
       tags = record.get('tags')
-      return tags.indexOf(word) isnt -1
+
+      if tags? and tags isnt ""
+        return tags.indexOf(word) isnt -1
+      else 
+        return false
   )
   window.store.sort("seconds", "DESC")
 

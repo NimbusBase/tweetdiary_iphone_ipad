@@ -171,7 +171,11 @@
     window.store.filterBy(function(record) {
       var tags;
       tags = record.get('tags');
-      return tags.indexOf(word) !== -1;
+      if ((tags != null) && tags !== "") {
+        return tags.indexOf(word) !== -1;
+      } else {
+        return false;
+      }
     });
     return window.store.sort("seconds", "DESC");
   };

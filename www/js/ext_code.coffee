@@ -50,6 +50,7 @@ Ext.setup
       
          
       onItemDisclosure:
+        #this code is useless
         scope: "test"
         handler: (record, btn, index) ->
           #alert "Disclose more info for " + record.get("firstName")
@@ -67,7 +68,8 @@ Ext.setup
             record = window.list.store.getAt(index)
 
             window.r_id = record.data.id
-            $("#buttonbar").show()
+            $("#deletebutton").show()
+            $("#clearbutton").hide()
             $("#writearea").val(record.get("text"))
             window.carousel.setActiveItem( 0, 'flip' )
             
@@ -89,7 +91,8 @@ Ext.setup
         html: """<textarea type=\"textarea\" id='writearea' placeholder='Tap and add your entry; Hit return to save'></textarea>
         <div id="buttonbar">
           <a class="button" onclick="window.save_entry()">Save</a>
-          <a class="button" id="rightbutton" onclick="window.delete_entry()">Delete</a>
+            <a class="button rightbutton" onclick="$('#writearea').val('')" id="clearbutton">Clear</a>
+          <a class="button rightbutton" onclick="window.delete_entry()" id="deletebutton" style="display: none;">Delete</a>
         </div>
         """
       , list,
@@ -140,7 +143,8 @@ Ext.setup
         if window.rid isnt ""
           $("#writearea").val("")
         
-        $("#buttonbar").hide()
+        $("#deletebutton").hide()
+        $("#clearbutton").show()
     )
     
     #create the main panel

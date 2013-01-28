@@ -1,6 +1,6 @@
 #notificationWrapper {
   position: fixed;
-  top: 3px;
+  bottom: 3px;
   left: 0;
   width: 100%;
     -webkit-perspective: 1000px;

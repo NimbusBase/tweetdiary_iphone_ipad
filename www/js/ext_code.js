@@ -61,7 +61,8 @@
             console.log("tapped");
             record = window.list.store.getAt(index);
             window.r_id = record.data.id;
-            $("#buttonbar").show();
+            $("#deletebutton").show();
+            $("#clearbutton").hide();
             $("#writearea").val(record.get("text"));
             return window.carousel.setActiveItem(0, 'flip');
           }
@@ -81,7 +82,7 @@
         },
         items: [
           {
-            html: "<textarea type=\"textarea\" id='writearea' placeholder='Tap and add your entry; Hit return to save'></textarea>\n<div id=\"buttonbar\">\n  <a class=\"button\" onclick=\"window.save_entry()\">Save</a>\n  <a class=\"button\" id=\"rightbutton\" onclick=\"window.delete_entry()\">Delete</a>\n</div>"
+            html: "<textarea type=\"textarea\" id='writearea' placeholder='Tap and add your entry; Hit return to save'></textarea>\n<div id=\"buttonbar\">\n  <a class=\"button\" onclick=\"window.save_entry()\">Save</a>\n    <a class=\"button rightbutton\" onclick=\"$('#writearea').val('')\" id=\"clearbutton\">Clear</a>\n  <a class=\"button rightbutton\" onclick=\"window.delete_entry()\" id=\"deletebutton\" style=\"display: none;\">Delete</a>\n</div>"
           }, list, {
             title: "Tab 3",
             html: "<div class=\"x-list\">\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px\">Sync all your entries across multiple devices by setting up storage on Dropbox.</p>\n        <p style=\"color: #fff; padding: 10px\">First click on authorize and then allow data access on the Dropbox link in the browser. Then click on validate back in the app.</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.auth()\">Authorize</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.validate()\">Validate</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.sync_entry()\">Sync All</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>                  \n</div>"
@@ -94,7 +95,8 @@
           if (window.rid !== "") {
             $("#writearea").val("");
           }
-          return $("#buttonbar").hide();
+          $("#deletebutton").hide();
+          return $("#clearbutton").show();
         }
       });
       new Ext.Panel({
