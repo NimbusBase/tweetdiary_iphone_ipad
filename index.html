@@ -1,93 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=640" />
-
-    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
-    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
-
-    <script type="text/javascript" src="javascripts/modernizr.js"></script>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function () {
-        $('#main_content').headsmart()
-      })
-    </script>
-    <title>Tweetdiary iphone ipad by NimbusBase</title>
-  </head>
-
-  <body>
-    <a id="forkme_banner" href="https://github.com/NimbusBase/tweetdiary_iphone_ipad">View on GitHub</a>
-    <div class="shell">
-
-      <header>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <h1>Tweetdiary iphone ipad</h1>
-            <h2>Tweetdiary rebuilt with a new mobile interface on Sencha Touch. Ported to mobile ios with phonegap</h2>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-      </header>
-
-      <section id="downloads">
-        <span class="inner">
-          <a href="https://github.com/NimbusBase/tweetdiary_iphone_ipad/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/NimbusBase/tweetdiary_iphone_ipad/tarball/master" class="tgz"><em>download</em> .TGZ</a>
-        </span>
-      </section>
-
-
-      <span class="banner-fix"></span>
-
-
-      <section id="main_content">
-        <h3>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-
-      <footer>
-        <span class="ribbon-outer">
-          <span class="ribbon-inner">
-            <p>this project by <a href="https://github.com/NimbusBase">NimbusBase</a> can be found on <a href="https://github.com/NimbusBase/tweetdiary_iphone_ipad">GitHub</a></p>
-          </span>
-          <span class="left-tail"></span>
-          <span class="right-tail"></span>
-        </span>
-        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
-        <span class="octocat"></span>
-      </footer>
-
-    </div>
-
-    
-  </body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-density, dpi=device-dpi" />
+        <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
+        <link rel="stylesheet" type="text/css" href="css/sencha-touch.css" />
+        <link rel="stylesheet" type="text/css" href="css/notify.css" />
+        <title>Tweet Diary</title>
+        
+        
+        <style type="text/css">
+		    	/*.x-list-header {  }; */
+		    	.maintext { font-size: 20px; }
+		    	.timetext { font-size: 12px; }
+		    	#writearea { padding-bottom: 60px; }
+		    	.x-list-header { background: rgb(10, 60, 110);
+					color: white;
+					text-shadow: none;
+					border-top: 1px solid rgba(255, 255, 255, 0.25);
+					border-bottom: 1px solid rgba(0, 0, 0, 0.1);}
+		    	.x-list .x-list-item { background-color: #333; color: #eee; border-top: 1px solid #555; }
+		    	/*.x-list .x-list-disclosure { background: white !important; } */
+		    	#buttonbar { height: 60px; position: absolute; top: 0px; background: none; width: 100%;}
+		    	.button { opacity: 0.8; background: #080; height: 100%; width: 50%; display: block; text-align: center; vertical-align: middle; font-size: 30px; color: white;text-decoration: none; padding-top: 10px; }
+		    	.rightbutton { background: #800; float: right; position: relative; top: -60px; }
+		    	.button:hover { opacity: 1; }
+		    	.x-list .x-list-item:last-child { border-bottom: 0px; }
+		    	.x-carousel-body { background-image: none; position: fixed; background-color: #000; }
+		    	.x-carousel-item { background: #000; }
+		    	.auth_button { text-decoration: none; padding: 15px 20px; position: relative; top: 30px; font-weight: 100; font-family: "Arial"; }
+		    	.x-carousel-indicator { display: none; }
+		    	.x-list .x-list-disclosure, .x-list .x-list-item.x-item-selected .x-list-disclosure {
+					-webkit-mask: none;
+					background-image: url('img/pencil.png');
+					background-size: 70%;
+					background-color: #fff;
+					background-repeat: no-repeat;
+					background-position: center;
+					border-radius: 0px;
+					vertical-align: middle;
+					-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+					margin-top: 0px;
+					display: none;
+		    	}
+	        </style>
+	        
+	        <style>
+		       	.awesome, .awesome:visited {
+					background: #222 url(alert-overlay.png) repeat-x;
+					display: inline-block;
+					padding: 5px 10px 6px;
+					color: #fff;
+					text-decoration: none;
+					-webkit-border-radius: 5px;
+					-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+					text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+					border-bottom: 1px solid rgba(0,0,0,0.25);
+					position: relative;
+					cursor: pointer;
+				}
+				.awesome:hover							{ background-color: #111; color: #fff; }
+				.awesome:active							{ top: 1px; }
+				.small.awesome, .small.awesome:visited 			{ font-size: 11px; padding: ; }
+				.awesome, .awesome:visited,
+				.medium.awesome, .medium.awesome:visited 		{ font-size: 13px; line-height: 1; text-shadow: 0 -1px 1px rgba(0,0,0,0.25); }
+				.large.awesome, .large.awesome:visited 			{ font-size: 20px; padding: 13px 24px 13px; width: 90%; margin: 7px 5%;}
+				
+				.green.awesome, .green.awesome:visited		{ background-color: #91bd09; }
+				.green.awesome:hover						{ background-color: #749a02; }
+				.blue.awesome, .blue.awesome:visited		{ background-color: #2daebf; }
+				.blue.awesome:hover							{ background-color: #007d9a; }
+				.red.awesome, .red.awesome:visited			{ background-color: #e33100; }
+				.red.awesome:hover							{ background-color: #872300; }
+				.magenta.awesome, .magenta.awesome:visited		{ background-color: #a9014b; }
+				.magenta.awesome:hover							{ background-color: #630030; }
+				.orange.awesome, .orange.awesome:visited		{ background-color: #ff5c00; }
+				.orange.awesome:hover							{ background-color: #d45500; }
+				.yellow.awesome, .yellow.awesome:visited		{ background-color: #ffb515; }
+				.yellow.awesome:hover							{ background-color: #fc9200; }
+		        
+      </style>
+        
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+    </head>
+    <body style="background-color: #000; padding: 0px;">
+        
+       	<script type="text/javascript" charset="utf-8" src="js/nimbus.js"></script>
+				<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+	    	<script type="text/javascript" charset="utf-8" src="js/sencha-touch.js"></script>
+	    	<script type="text/javascript" charset="utf-8" src="js/jquery.timeago.js"></script>
+	    	<script type="text/javascript" charset="utf-8" src="js/twitter-text-1.5.0.js"></script>
+        <script type="text/javascript" src="cordova-2.3.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/ext_code.js"></script>
+        <script type="text/javascript" src="js/ios.notify.js"></script>
+        
+        <script type="text/javascript">
+            app.initialize();
+            </script>
+    </body>
 </html>
