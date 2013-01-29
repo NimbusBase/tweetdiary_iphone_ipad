@@ -27,7 +27,7 @@
         {
           text: entry.text,
           create_time: timeago,
-          tags: entry.tags.toString(),
+          tags: entry.tags.toString().replace(",", " "),
           date: date,
           id: entry.id,
           seconds: d / 1000
@@ -52,7 +52,7 @@
       all_entries.push({
         text: entry.text,
         create_time: timeago,
-        tags: entry.tags.toString(),
+        tags: entry.tags.toString().replace(",", " "),
         date: date,
         id: entry.id,
         seconds: d / 1000,

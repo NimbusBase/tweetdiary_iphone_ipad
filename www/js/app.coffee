@@ -20,7 +20,7 @@ window.create_new_entry = ()->
     timeago = jQuery.timeago(d)
     date = (d.getUTCMonth() + 1 ) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear()
 
-    window.store.loadData([{text: entry.text, create_time: timeago, tags: entry.tags.toString(), date: date, id: entry.id, seconds: (d/1000) }], true)
+    window.store.loadData([{text: entry.text, create_time: timeago, tags: entry.tags.toString().replace(",", " "), date: date, id: entry.id, seconds: (d/1000) }], true)
     
     ios_notify.notify( title: "Entry Added", message: content )
 
@@ -31,7 +31,7 @@ window.get_entry_from_spine = ()->
     timeago = jQuery.timeago(d)
     date = (d.getUTCMonth() + 1 ) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear()
 
-    all_entries.push( text: entry.text, create_time: timeago, tags: entry.tags.toString(), date: date, id: entry.id, seconds: (d/1000), time: entry.time ) 
+    all_entries.push( text: entry.text, create_time: timeago, tags: entry.tags.toString().replace(",", " "), date: date, id: entry.id, seconds: (d/1000), time: entry.time ) 
   all_entries
 
 window.delete_entry = () ->
@@ -94,7 +94,6 @@ window.sync_entry = ->
 
 window.auto_sync = ->
   if Nimbus.Auth.authorized() and (window.navigator.onLine or navigator.network.connection.type is Connection.WIFI or navigator.network.connection.type is Connection.CELL_3G) 
-    
     
     Entry.sync_all( ()->
       if get_entry_from_spine().length > 0

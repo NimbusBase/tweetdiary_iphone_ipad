@@ -29,7 +29,7 @@ Ext.setup
     
     #do the model and the center pane
     groupingBase =
-      itemTpl: "<div class=\"maintext\">{text}</div> <div class=\"timetext\">{create_time}</div>"
+      itemTpl: "<div class=\"maintext {tags}\">{text}</div> <div class=\"timetext\">{create_time}</div>"
         
       singleSelect: false
       multiSelect: false  
