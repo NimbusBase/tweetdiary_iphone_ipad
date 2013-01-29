@@ -165,7 +165,11 @@ Ext.setup
 
     $("#filtertext").keyup( ()->
       if $("#filtertext").val() isnt ""
+        window.list.scroller.scrollTo
+          x: 0
+          y: 0
         window.filter_store( $("#filtertext").val().replace("#", "") )
+        
       else
         window.store.filterBy( () -> return true )
         window.store.sort("seconds", "DESC")

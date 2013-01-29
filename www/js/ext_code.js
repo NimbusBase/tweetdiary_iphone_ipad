@@ -113,6 +113,10 @@
       $("#entry_list").append("<div id='entryfilter'><input type='text' name='' placeholder='put tag here to filter' id='filtertext'></div>");
       $("#filtertext").keyup(function() {
         if ($("#filtertext").val() !== "") {
+          window.list.scroller.scrollTo({
+            x: 0,
+            y: 0
+          });
           return window.filter_store($("#filtertext").val().replace("#", ""));
         } else {
           window.store.filterBy(function() {
