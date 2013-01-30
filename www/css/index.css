@@ -1,3 +1,52 @@
+/* icon style */
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'fontello';
+  src: url("../font/fontello.eot");
+  src: url("../font/fontello.eot?#iefix") format('embedded-opentype'), url("../font/fontello.woff") format('woff'), url("../font/fontello.ttf") format('truetype'), url("../font/fontello.svg#fontello") format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: 'fontello';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+  opacity: 0.8;
+/* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+/* Animation center compensation - magrins should be symmetric */
+/* remove if not needed */
+  margin-left: 0.2em;
+/* you can be more comfortable with increased icons size */
+/* font-size: 120%; */
+/* Uncomment for 3D effect */
+/* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-left:before { content: '\2190'; } /* '←' */
+.icon-up:before { content: '\2191'; } /* '↑' */
+.icon-right:before { content: '\2192'; } /* '→' */
+.icon-down:before { content: '\2193'; } /* '↓' */
+.icon-right-hand:before { content: '\261e'; } /* '☞' */
+.icon-ok:before { content: '\2713'; } /* '✓' */
+.icon-ok-1:before { content: '\e800'; } /* '' */
+.icon-ok-2:before { content: '\e802'; } /* '' */
+.icon-left-open:before { content: '\e75d'; } /* '' */
+.icon-right-open:before { content: '\e75e'; } /* '' */
+.icon-up-open:before { content: '\e75f'; } /* '' */
+.icon-arrows-ccw:before { content: '🔄'; } /* '\1f504' */
+.icon-key:before { content: '🔑'; } /* '\1f511' */
+.icon-key-inv:before { content: '\e801'; } /* '' */
+
+/* page style */
 .x-list .x-list-item { 
 text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); 
 color: #fff; 
@@ -22,6 +71,10 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 .x-list .x-list-item:nth-child(6), .x-list .x-item-selected:nth-child(6) { background-color: rgb(100, 150, 200); }
 .x-list .x-list-item:nth-child(7), .x-list .x-item-selected:nth-child(7) { background-color: rgb(110, 160, 210); }
 .x-list .x-list-item:nth-child(8), .x-list .x-item-selected:nth-child(8) { background-color: rgb(120, 170, 220); }
+
+.x-list .x-list-item, .x-item-selected {
+    background-color: rgb(120, 170, 220);
+}
 
 #writearea {
     border: 0px;
@@ -95,6 +148,36 @@ border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .rightbutton { background: #877; float: right; position: relative; top: -60px; }
+
+.checkbox { 
+    height: 100%;
+    width: 56px;
+    background-color: rgba(255,255,255, 0.1);
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px; 
+    display: none;
+}
+
+.todo .checkbox {
+    display: block;
+}
+
+.maintext.todo {
+    padding-right: 45px;
+}
+
+.icon-ok {
+    font-size: 40px;
+    margin-left: 2px;
+    top: 50%;
+    margin-top: -22px;
+    position: absolute;
+    display: none;
+}
+
+.done .icon-ok { display: inline; }
 
 /*
 .x-list .x-list-item:nth-child(1) { background-color: rgb(239, 0, 0);  }

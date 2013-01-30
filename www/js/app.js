@@ -22,7 +22,7 @@
       $("#writearea").val("");
       d = new Date(entry.create_time);
       timeago = jQuery.timeago(d);
-      date = (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear();
+      date = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
       window.store.loadData([
         {
           text: entry.text,
@@ -40,7 +40,7 @@
     }
   };
 
-  window.get_entry_from_spine = function() {
+  window.get_entry = function() {
     var all_entries, d, date, entry, timeago, _i, _len, _ref;
     all_entries = [];
     _ref = Entry.all();
@@ -48,7 +48,7 @@
       entry = _ref[_i];
       d = new Date(entry.create_time);
       timeago = jQuery.timeago(d);
-      date = (d.getUTCMonth() + 1) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear();
+      date = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
       all_entries.push({
         text: entry.text,
         create_time: timeago,
@@ -70,20 +70,39 @@
       title: "Deleted",
       message: "Entry Deleted"
     });
-    window.store.loadData(get_entry_from_spine(), false);
+    window.store.loadData(get_entry(), false);
     window.list.refresh();
     window.carousel.setActiveItem(1, 'flip');
     return window.r_id = "";
   };
 
+  window.toggle_todo = function(id, event) {
+    var e;
+    console.log(id, event);
+    e = Entry.find(id);
+    if (e.text.indexOf("#done") !== -1) {
+      e.text = e.text.replace("#done", "");
+      $("#" + id).removeClass("done");
+    } else {
+      e.text = e.text + " #done";
+      $("#" + id).addClass("done");
+    }
+    e.tags = twttr.txt.extractHashtags(e.text);
+    return e.save();
+  };
+
   window.save_entry = function() {
-    var e, value;
+    var e, index, record, value;
     e = Entry.find(window.r_id);
     value = $("#writearea").val();
+    e.tags = twttr.txt.extractHashtags(value);
     e.text = value;
     e.save();
-    window.store.loadData(get_entry_from_spine(), false);
-    window.list.refresh();
+    index = window.store.find("id", window.r_id);
+    record = window.store.getAt(index);
+    record.set("text", e.text);
+    record.set("tags", e.tags);
+    record.dirty = true;
     window.carousel.setActiveItem(1, 'flip');
     ios_notify.notify({
       title: "Saved",
@@ -128,7 +147,7 @@
   window.sync_entry = function() {
     if (Nimbus.Auth.authorized()) {
       return Entry.sync_all(function() {
-        window.store.loadData(get_entry_from_spine(), false);
+        window.store.loadData(get_entry(), false);
         window.list.refresh();
         return ios_notify.notify({
           title: "Synced",
@@ -146,10 +165,10 @@
   window.auto_sync = function() {
     if (Nimbus.Auth.authorized() && (window.navigator.onLine || navigator.network.connection.type === Connection.WIFI || navigator.network.connection.type === Connection.CELL_3G)) {
       return Entry.sync_all(function() {
-        if (get_entry_from_spine().length > 0) {
+        if (get_entry().length > 0) {
           if (window.last_data !== localStorage["Entry"]) {
             console.log("auto-syncing triggered");
-            window.store.loadData(get_entry_from_spine(), false);
+            window.store.loadData(get_entry(), false);
             window.list.refresh();
             if ($("#filtertext").val() !== "") {
               window.filter_store($("#filtertext").val().replace("#", ""));

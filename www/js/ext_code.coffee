@@ -9,7 +9,7 @@ Ext.setup
     Ext.regModel "Entry",
       fields: ["text", "create_time", "tags", "date", "seconds"]
     
-    all_entries = get_entry_from_spine()
+    all_entries = get_entry()
     
     window.store = new Ext.data.Store(
       model: "Entry"
@@ -29,7 +29,7 @@ Ext.setup
     
     #do the model and the center pane
     groupingBase =
-      itemTpl: "<div class=\"maintext {tags}\">{text}</div> <div class=\"timetext\">{create_time}</div>"
+      itemTpl: "<div class=\"maintext {tags}\" id=\"{id}\">{text} <div onclick=\"window.toggle_todo('{id}');return false;\" class=\"checkbox\"><i class=\"icon-ok\"></i></div></div> <div class=\"timetext\">{create_time}</div>"
         
       singleSelect: false
       multiSelect: false  
@@ -63,15 +63,17 @@ Ext.setup
       
       listeners:
           itemtap:  (list, index, item, e) ->
-            console.log("tapped")
+            
+            console.log("tapped", e)
 
-            record = window.list.store.getAt(index)
+            if e.target.className isnt "checkbox" and e.target.className isnt "icon-ok"
+              record = window.list.store.getAt(index)
 
-            window.r_id = record.data.id
-            $("#deletebutton").show()
-            $("#clearbutton").hide()
-            $("#writearea").val(record.get("text"))
-            window.carousel.setActiveItem( 0, 'flip' )
+              window.r_id = record.data.id
+              $("#deletebutton").show()
+              $("#clearbutton").hide()
+              $("#writearea").val(record.get("text"))
+              window.carousel.setActiveItem( 0, 'flip' )
             
       store: window.store
 
@@ -108,26 +110,26 @@ Ext.setup
             </div>
             <div class="x-list-disclosure"></div>
           </div>
-          <div class="x-list-item">
+          <div class="x-list-item" onclick="window.auth()">
             <div class="x-list-item-body">
               <div class="maintext">
-                <p style="color: #fff; padding: 10px; text-align: middle"><a onclick="window.auth()">Authorize</a></p>
+                <p style="color: #fff; padding: 10px; text-align: middle"><i class="icon-key"></i> Authorize</p>
               </div> 
             </div>
             <div class="x-list-disclosure"></div>
           </div>
-          <div class="x-list-item">
+          <div class="x-list-item" onclick="window.validate()">
             <div class="x-list-item-body">
               <div class="maintext">
-                <p style="color: #fff; padding: 10px; text-align: middle"><a onclick="window.validate()">Validate</a></p>
+                <p style="color: #fff; padding: 10px; text-align: middle"><i class="icon-ok-1"></i> Validate</p>
               </div> 
             </div>
             <div class="x-list-disclosure"></div>
           </div>
-          <div class="x-list-item">
+          <div class="x-list-item" onclick="window.sync_entry()">
             <div class="x-list-item-body">
               <div class="maintext">
-                <p style="color: #fff; padding: 10px; text-align: middle"><a onclick="window.sync_entry()">Sync All</a></p>
+                <p style="color: #fff; padding: 10px; text-align: middle"><i class="icon-arrows-ccw"></i> Sync All</p>
               </div> 
             </div>
             <div class="x-list-disclosure"></div>

@@ -9,7 +9,7 @@ Ext.setup
     Ext.regModel "Entry",
       fields: ["text", "create_time", "tags", "date", "seconds"]
     
-    all_entries = get_entry_from_spine()
+    all_entries = get_entry()
     
     window.store = new Ext.data.Store(
       model: "Entry"

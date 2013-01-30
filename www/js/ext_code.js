@@ -11,7 +11,7 @@
       Ext.regModel("Entry", {
         fields: ["text", "create_time", "tags", "date", "seconds"]
       });
-      all_entries = get_entry_from_spine();
+      all_entries = get_entry();
       window.store = new Ext.data.Store({
         model: "Entry",
         sorters: {
@@ -28,7 +28,7 @@
         data: all_entries
       });
       groupingBase = {
-        itemTpl: "<div class=\"maintext {tags}\">{text}</div> <div class=\"timetext\">{create_time}</div>",
+        itemTpl: "<div class=\"maintext {tags}\" id=\"{id}\">{text} <div onclick=\"window.toggle_todo('{id}');return false;\" class=\"checkbox\"><i class=\"icon-ok\"></i></div></div> <div class=\"timetext\">{create_time}</div>",
         singleSelect: false,
         multiSelect: false,
         grouped: true,
@@ -58,13 +58,15 @@
         listeners: {
           itemtap: function(list, index, item, e) {
             var record;
-            console.log("tapped");
-            record = window.list.store.getAt(index);
-            window.r_id = record.data.id;
-            $("#deletebutton").show();
-            $("#clearbutton").hide();
-            $("#writearea").val(record.get("text"));
-            return window.carousel.setActiveItem(0, 'flip');
+            console.log("tapped", e);
+            if (e.target.className !== "checkbox" && e.target.className !== "icon-ok") {
+              record = window.list.store.getAt(index);
+              window.r_id = record.data.id;
+              $("#deletebutton").show();
+              $("#clearbutton").hide();
+              $("#writearea").val(record.get("text"));
+              return window.carousel.setActiveItem(0, 'flip');
+            }
           }
         },
         store: window.store
@@ -85,7 +87,7 @@
             html: "<textarea type=\"textarea\" id='writearea' placeholder='Tap and add your entry; Hit return to save'></textarea>\n<div id=\"buttonbar\">\n  <a class=\"button\" onclick=\"window.save_entry()\">Save</a>\n    <a class=\"button rightbutton\" onclick=\"$('#writearea').val('')\" id=\"clearbutton\">Clear</a>\n  <a class=\"button rightbutton\" onclick=\"window.delete_entry()\" id=\"deletebutton\" style=\"display: none;\">Delete</a>\n</div>"
           }, list, {
             title: "Tab 3",
-            html: "<div class=\"x-list\">\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px\">Sync all your entries across multiple devices by setting up storage on Dropbox.</p>\n        <p style=\"color: #fff; padding: 10px\">First click on authorize and then allow data access on the Dropbox link in the browser. Then click on validate back in the app.</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.auth()\">Authorize</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.validate()\">Validate</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><a onclick=\"window.sync_entry()\">Sync All</a></p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>                  \n</div>"
+            html: "<div class=\"x-list\">\n  <div class=\"x-list-item\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px\">Sync all your entries across multiple devices by setting up storage on Dropbox.</p>\n        <p style=\"color: #fff; padding: 10px\">First click on authorize and then allow data access on the Dropbox link in the browser. Then click on validate back in the app.</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\" onclick=\"window.auth()\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><i class=\"icon-key\"></i> Authorize</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\" onclick=\"window.validate()\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><i class=\"icon-ok-1\"></i> Validate</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>\n  <div class=\"x-list-item\" onclick=\"window.sync_entry()\">\n    <div class=\"x-list-item-body\">\n      <div class=\"maintext\">\n        <p style=\"color: #fff; padding: 10px; text-align: middle\"><i class=\"icon-arrows-ccw\"></i> Sync All</p>\n      </div> \n    </div>\n    <div class=\"x-list-disclosure\"></div>\n  </div>                  \n</div>"
           }
         ]
       });

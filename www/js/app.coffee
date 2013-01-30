@@ -18,18 +18,18 @@ window.create_new_entry = ()->
     
     d = new Date(entry.create_time)
     timeago = jQuery.timeago(d)
-    date = (d.getUTCMonth() + 1 ) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear()
+    date = (d.getMonth() + 1 ) + "/" + d.getDate() + "/" + d.getFullYear()
 
     window.store.loadData([{text: entry.text, create_time: timeago, tags: entry.tags.toString().replace(",", " "), date: date, id: entry.id, seconds: (d/1000) }], true)
     
     ios_notify.notify( title: "Entry Added", message: content )
 
-window.get_entry_from_spine = ()->
+window.get_entry = ()->
   all_entries = [] 
   for entry in Entry.all()
     d = new Date(entry.create_time)
     timeago = jQuery.timeago(d)
-    date = (d.getUTCMonth() + 1 ) + "/" + d.getUTCDate() + "/" + d.getUTCFullYear()
+    date = (d.getMonth() + 1 ) + "/" + d.getDate() + "/" + d.getFullYear()
 
     all_entries.push( text: entry.text, create_time: timeago, tags: entry.tags.toString().replace(",", " "), date: date, id: entry.id, seconds: (d/1000), time: entry.time ) 
   all_entries
@@ -40,19 +40,49 @@ window.delete_entry = () ->
   
   ios_notify.notify( title: "Deleted", message: "Entry Deleted" )
   
-  window.store.loadData(get_entry_from_spine(), false)
+  window.store.loadData(get_entry(), false)
   window.list.refresh()
   window.carousel.setActiveItem( 1, 'flip' )
   window.r_id = ""
 
+window.toggle_todo = (id, event) ->
+  console.log(id, event)
+
+  e = Entry.find(id)
+  
+  if e.text.indexOf("#done") isnt -1 
+    e.text = e.text.replace("#done", "")
+    $("#"+id).removeClass("done")
+  else
+    e.text = e.text + " #done"
+    $("#"+id).addClass("done")
+
+  e.tags = twttr.txt.extractHashtags(e.text)
+  e.save()
+  
+
+  #index = window.store.find("id", id)
+  #record = window.store.getAt(index)
+  #record.set "text", e.text
+  #record.set "tags", e.tags
+  #record.dirty = true
+
 window.save_entry = () ->
   e = Entry.find(window.r_id)
   value = $("#writearea").val()
+  e.tags = twttr.txt.extractHashtags(value)
   e.text = value
   e.save()
   
-  window.store.loadData(get_entry_from_spine(), false)
-  window.list.refresh()
+  index = window.store.find("id", window.r_id)
+  record = window.store.getAt(index)
+  record.set "text", e.text
+  record.set "tags", e.tags
+  record.dirty = true
+  #window.store.sync()
+
+  #window.store.loadData(get_entry(), false)
+  #window.list.refresh()
   
   window.carousel.setActiveItem( 1, 'flip' )
   ios_notify.notify( title: "Saved", message: "Entry Saved" )
@@ -85,7 +115,7 @@ Nimbus.Auth.authorized_callback = ()->
 window.sync_entry = ->
   if Nimbus.Auth.authorized()
     Entry.sync_all( ()->
-      window.store.loadData(get_entry_from_spine(), false)
+      window.store.loadData(get_entry(), false)
       window.list.refresh()
       ios_notify.notify( title: "Synced", message: "Data synced!" )
     )
@@ -96,12 +126,12 @@ window.auto_sync = ->
   if Nimbus.Auth.authorized() and (window.navigator.onLine or navigator.network.connection.type is Connection.WIFI or navigator.network.connection.type is Connection.CELL_3G) 
     
     Entry.sync_all( ()->
-      if get_entry_from_spine().length > 0
+      if get_entry().length > 0
         #check if the entries actually changed
         if window.last_data isnt localStorage["Entry"]
           console.log("auto-syncing triggered")
 
-          window.store.loadData(get_entry_from_spine(), false)
+          window.store.loadData(get_entry(), false)
           window.list.refresh()
 
           if $("#filtertext").val() isnt ""
