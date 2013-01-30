@@ -93,23 +93,27 @@
 
   window.save_entry = function() {
     var e, index, record, value;
-    e = Entry.find(window.r_id);
-    value = $("#writearea").val();
-    e.tags = twttr.txt.extractHashtags(value);
-    e.text = value;
-    e.save();
-    index = window.store.find("id", window.r_id);
-    record = window.store.getAt(index);
-    record.set("text", e.text);
-    record.set("tags", e.tags);
-    record.dirty = true;
-    window.carousel.setActiveItem(1, 'flip');
-    ios_notify.notify({
-      title: "Saved",
-      message: "Entry Saved"
-    });
-    $("#writearea").val("");
-    return window.r_id = "";
+    if (window.r_id === "") {
+      return window.create_new_entry();
+    } else {
+      e = Entry.find(window.r_id);
+      value = $("#writearea").val();
+      e.tags = twttr.txt.extractHashtags(value);
+      e.text = value;
+      e.save();
+      index = window.store.find("id", window.r_id);
+      record = window.store.getAt(index);
+      record.set("text", e.text);
+      record.set("tags", e.tags);
+      record.dirty = true;
+      window.carousel.setActiveItem(1, 'flip');
+      ios_notify.notify({
+        title: "Saved",
+        message: "Entry Saved"
+      });
+      $("#writearea").val("");
+      return window.r_id = "";
+    }
   };
 
   Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "diary_app");

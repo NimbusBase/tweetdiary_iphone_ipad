@@ -68,26 +68,29 @@ window.toggle_todo = (id, event) ->
   #record.dirty = true
 
 window.save_entry = () ->
-  e = Entry.find(window.r_id)
-  value = $("#writearea").val()
-  e.tags = twttr.txt.extractHashtags(value)
-  e.text = value
-  e.save()
-  
-  index = window.store.find("id", window.r_id)
-  record = window.store.getAt(index)
-  record.set "text", e.text
-  record.set "tags", e.tags
-  record.dirty = true
-  #window.store.sync()
+  if window.r_id is ""
+    window.create_new_entry()
+  else
+    e = Entry.find(window.r_id)
+    value = $("#writearea").val()
+    e.tags = twttr.txt.extractHashtags(value)
+    e.text = value
+    e.save()
+    
+    index = window.store.find("id", window.r_id)
+    record = window.store.getAt(index)
+    record.set "text", e.text
+    record.set "tags", e.tags
+    record.dirty = true
+    #window.store.sync()
 
-  #window.store.loadData(get_entry(), false)
-  #window.list.refresh()
-  
-  window.carousel.setActiveItem( 1, 'flip' )
-  ios_notify.notify( title: "Saved", message: "Entry Saved" )
-  $("#writearea").val("")
-  window.r_id = ""
+    #window.store.loadData(get_entry(), false)
+    #window.list.refresh()
+    
+    window.carousel.setActiveItem( 1, 'flip' )
+    ios_notify.notify( title: "Saved", message: "Entry Saved" )
+    $("#writearea").val("")
+    window.r_id = ""
 
 Nimbus.Auth.setup("Dropbox", "q5yx30gr8mcvq4f", "qy64qphr70lwui5", "diary_app") #switch this with your own app key (please!!!!)
 
